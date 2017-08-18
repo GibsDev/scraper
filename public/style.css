@@ -1,0 +1,11 @@
+* {
+	font-family: monospace;
+}
+
+#query {
+	flex-grow: 1;
+}
+
+#textQuery {
+	display: flex;
+}
