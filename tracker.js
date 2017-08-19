@@ -4,8 +4,6 @@ const database = require('./database');
 const gb = require('./gb');
 const umg = require('./umg');
 
-var url = 'http://gamebattles.majorleaguegaming.com/xboxone/call-of-duty-modern-warfare/tournament/3v3-amateur-sd-08-16';
-
 // TODO schedule tournament processor and do umg
 
 var scrapers = [
@@ -59,11 +57,13 @@ async function processTournament(scraper, url){
 	}
 	promises.push(database.upsertTournament(tournament));
 	Promise.all(promises).then(docs => {
-		database.query({}, 'users').then(users => {
-			console.log(users);
+		console.log('Finished processing ' + url);
+		console.log('Processed ' + users.length + ' users');
+		database.query('users', {}).then(users => {
+			console.log('Total user count: ' + users.length);
 		});
-		database.query({}, 'tournaments').then(tournaments => {
-			console.log(tournaments);
+		database.query('tournaments', {}).then(tournaments => {
+			console.log('Total tournament count: ' + tournaments.length);
 		});
 	});
 }

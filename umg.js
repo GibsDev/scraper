@@ -62,15 +62,16 @@ mod.checkTournaments = function(){
 			var t = {};
 			t.link = link($(elem).find('a[href*="/tournaments/"]').attr('href'));
 			var now = new Date(Date.now());
-			var day = $(elem).find('li > p > strong').first().text().trim();
-			var time = $(elem).find('li > p > span').first().text().trim();
+			var day = $(elem).find('p > strong').first().text().trim();
+			var time = $(elem).find('p > span').first().text().trim();
 			var hour12 = (time.toLowerCase().endsWith('pm')) ? 12 : 0;
 			var hour = parseInt(time.split(':')[0]);
 			var minute = parseInt(time.split(':')[1]);
 			hour += hour12;
 			var month = months.indexOf(day.split(' ')[0].toLowerCase());
 			var day = parseInt(day.split(' ')[1]);
-			t.date = new Date(now.getFullYear(), month, day, hour, minute);
+			var dateshown = new Date(now.getFullYear(), month, day, hour, minute);
+			t.date = new Date(dateshown.valueOf() - (1000 * 60 * 60 * 4));
 			tournaments.push(t);
 		});
 		resolve(tournaments);
@@ -92,7 +93,8 @@ mod.processTournament = function(url){
 		tournament.region = getRegion($);
 		tournament.platform = getPlatform($);
 		tournament.game = getGameTitle($);
-		tournament.date = getDate($);
+		var dateshown = getDate($);
+		tournament.date = new Date(dateshown.valueOf() - (1000 * 60 * 60 * 4));
 		tournament.entry = parseInt($('div.container div.row div.row ul:nth-child(1) li:nth-child(1) p span').text().replace('  ', ' '));
 		tournament.teamSize = parseInt($('div.col-sm-10 > div.row > ul:nth-child(3) > li:nth-child(2) span').first().text());
 		// Load team page
