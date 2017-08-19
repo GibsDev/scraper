@@ -5,6 +5,8 @@ const https = require('https');
 const URL = require('url');
 const createPhantomPool = require('phantom-pool');
 
+const agent = 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36';
+
 // Returns a generic-pool instance
 const pool = createPhantomPool({
 	max: 4,
@@ -16,6 +18,8 @@ var ajaxFilters = [
 	'profile.majorleaguegaming.com',
 	'twitch.tv',
 ];
+
+// TODO look into spacing out requests to same domain here
 
 // Gets the contents of a page and hands it back to the callback function
 module.exports = function(url){
@@ -46,11 +50,11 @@ module.exports = function(url){
 			var options = {
 				host: u.host,
 				path: u.path,
-				headers: {'User-Agent':'javascript'}
+				headers: {'User-Agent':agent}
 			};
 			protocol.get(options, res => {
 				if(res.statusCode != 200){
-					reject(Error('Failed to load page: ' + url));
+					reject(Error('Failed to load page (' + res.statusCode + '): ' + url));
 					return;
 				}
 				var body = '';
