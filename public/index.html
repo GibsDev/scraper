@@ -6,6 +6,10 @@
 	</head>
 	<body>
 		<div>
+			<div id='graphHolder'>
+				<canvas id='NA' class='graph'></canvas>
+				<canvas id='EU' class='graph'></canvas>
+			</div>
 			<div id='textQuery'>
 				<select id='collection'>
 					<option value='users'>users</option>
@@ -18,5 +22,7 @@
 		<div id='results'></div>
 	</body>
 	<script type='text/javascript' src='database.js'></script>
+	<script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js'></script>
+	<script type='text/javascript' src='graph.js'></script>
 	<script type='text/javascript' src='script.js'></script>
 </html>

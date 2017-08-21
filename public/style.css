@@ -9,3 +9,11 @@
 #textQuery {
 	display: flex;
 }
+
+div#graphHolder {
+	display: flex;
+}
+
+canvas.graph {
+	margin: auto;
+}
