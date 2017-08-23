@@ -9,7 +9,7 @@ var colors = [
 	'#ff66ff',
 	'#ffff66',
 ];
-
+/*
 database.query('tournaments', { "website": "gamebattles.majorleaguegaming.com" }).then(docs => {
 	var regions = {};
 	for(doc of docs){
@@ -124,3 +124,4 @@ function hasPlayers(list){
 	}
 	return hasPlayers;
 }
+*/

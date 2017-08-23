@@ -6,17 +6,40 @@
 	</head>
 	<body>
 		<div>
+			<!--
 			<div id='graphHolder'>
 				<canvas id='NA' class='graph'></canvas>
 				<canvas id='EU' class='graph'></canvas>
 			</div>
+			!-->
+			<p>Advanced Query:</p>
 			<div id='textQuery'>
 				<select id='collection'>
 					<option value='users'>users</option>
 					<option value='tournaments'>tournaments</option>
 				</select>
 				<input type='text' id='query' value='{}'>
-				<input type='button' id='querySubmit' value='Submit Query'>
+				<input type='button' id='querySubmit' value='Submit Advanced Query'>
+			</div>
+			<p>Simple User Query</p>
+			<div id='guiQuery'>
+				<p><input type="checkbox" id="gamecheck"> Game: <select id='game'>
+					<option value='IW'>Infinite Warfare</option>
+					<option value='MWR'>Modern Warfare</option>
+					<option value='Ghosts'>Ghosts</option>
+					<option value='BO3'>Black Ops 3</option>
+					<option value='BO2'>Black Ops 2</option>
+				</select></p>
+				<p><input type="checkbox" id="twittercheck"> Twitter | Minimum Follwers: <input type="number" id="twittermin" value="0"></p>
+				<p><input type="checkbox" id="regioncheck"> Region: <select id='region'>
+					<option value='NA'>North America</option>
+					<option value='EU'>Europe</option>
+				</select></p>
+				<p><input type="checkbox" id="platformcheck"> Platform: <select id='platform'>
+					<option value='psn'>PS4</option>
+					<option value='xbl'>XB1</option>
+				</select></p>
+				<input type='button' id='guiQuerySubmit' value='Submit Simple Query'>
 			</div>
 		</div>
 		<div id='results'></div>

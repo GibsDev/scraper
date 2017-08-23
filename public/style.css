@@ -17,3 +17,8 @@ div#graphHolder {
 canvas.graph {
 	margin: auto;
 }
+
+table, th, td {
+	border: 1px solid #ccc;
+	border-collapse: collapse;
+}

@@ -22,9 +22,16 @@ var ajaxFilters = [
 // TODO look into spacing out requests to same domain here
 
 // Gets the contents of a page and hands it back to the callback function
-module.exports = function(url){
+module.exports = function(url, delay, retries, interval){
 	url = url.trim();
 	return new Promise( async (resolve, reject) => {
+		if(retries && retries == 0){
+			reject(Error('Maximum retries reached: ' + url));
+			return;
+		}
+		if(delay){
+			await sleep(delay);
+		}
 		var ajax = false;
 		for(filter of ajaxFilters){
 			if(url.includes(filter)){
@@ -66,3 +73,9 @@ module.exports = function(url){
 		}
 	});
 };
+
+function sleep(millis){
+	return new Promise((resolve, reject) => {
+		setTimeout(resolve, millis);
+	});
+}
