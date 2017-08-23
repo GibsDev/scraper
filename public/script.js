@@ -19,7 +19,7 @@ querySubmit.addEventListener('click', click => {
 
 var gameRegex = {
 	"BO3": "Call of Duty: Black Ops (3|III)",
-	"B02": "Call of Duty: Black Ops (2|II)",
+	"BO2": "Call of Duty: Black Ops (2|II)",
 	"Ghosts": "Call of Duty: Ghosts",
 	"IW": "Call of Duty: Infinite Warfare",
 	"MWR": "Call of Duty: Modern Warfare.*"
