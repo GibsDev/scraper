@@ -3,8 +3,6 @@ const scrape = require('./scrape');
 const URL = require('url');
 const social = require('./social');
 
-const interval = 2000;
-
 var mod = {};
 
 const months = [
@@ -117,11 +115,8 @@ mod.processTournament = function(url){
 			teamLinks.push(l);
 		});
 		var promises = [];
-		var i = 0;
 		for(teamLink of teamLinks){
-			i++;
-			var time = i * interval;
-			promises.push(processTeam(link(teamLink), url, tournament.region, tournament.game, time));
+			promises.push(processTeam(link(teamLink), url, tournament.region, tournament.game));
 		}
 		Promise.all(promises).then(users => {
 			for(userList of users){
@@ -135,7 +130,7 @@ mod.processTournament = function(url){
 };
 
 // Resolves a list of Users for the given team url
-function processTeam(url, tournamenturl, region, game, delay){
+function processTeam(url, tournamenturl, region, game){
 	return new Promise(async (resolve, reject) => {
 		var u = URL.parse(url);
 		var html = await scrape(url);
@@ -146,23 +141,14 @@ function processTeam(url, tournamenturl, region, game, delay){
 			userLinks.push($(elem).attr('href').trim());
 		});
 		var promises = [];
-		var i = 0;
 		for(userLink of userLinks){
-			i++;
-			var time = delay + i * interval;
-			setTimeout((userLink) => {
-				promises.push(processUser(link(userLink), tournamenturl, region, game));
-			}, time, userLink);
+			promises.push(processUser(link(userLink), tournamenturl, region, game));
 		}
-		setTimeout(() => {
-			Promise.all(promises).then(users => {
-				resolve(users);
-			});
-		}, delay + (i + 1) * interval);
+		Promise.all(promises).then(users => {
+			resolve(users);
+		});
 	});
 }
-
-// TODO come up with a better solution for spacing out requests
 
 // Returns a promise of a User from a url
 function processUser(url, tournamenturl, region, game){
