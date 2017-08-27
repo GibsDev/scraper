@@ -168,7 +168,8 @@ function processUser(url, tournamenturl, region, game){
 			e.each((i, elem) => {
 				if($(elem).html().trim().toLowerCase().includes('ps4')){
 					user.psn = $(elem).text().trim();
-				} else if($(elem).html().trim().toLowerCase().includes('xbox')){
+				}
+				if($(elem).html().trim().toLowerCase().includes('xbox')){
 					user.xbl = $(elem).text().trim();
 				}
 			});

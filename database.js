@@ -70,6 +70,15 @@ mod.upsertOne = function(doc, collection){
 mod.query = function(collection, query){
 	return new Promise(async (resolve, reject) => {
 		var database = await getDB();
+		// Convert dates
+		if(query.updated != undefined){
+			for(key in query.updated){
+				var d = new Date(query.updated[key]);
+				if(!isNaN(d.valueOf())){
+					query.updated[key] = d;
+				}
+			}
+		}
 		var results = database.collection(collection).find(query).toArray().then(results => {
 			resolve(results);
 			database.close();
@@ -90,6 +99,8 @@ mod.deleteAll = function(){
 };
 
 module.exports = mod;
+
+// TODO consider changing all dates to the .valueOf() number
 
 /*
 User {

@@ -1,5 +1,5 @@
-var query = document.getElementById('query');
-var querySubmit = document.getElementById('querySubmit');
+//var query = document.getElementById('query');
+//var querySubmit = document.getElementById('querySubmit');
 var collection = document.getElementById('collection');
 var results = document.getElementById('results');
 
@@ -7,15 +7,23 @@ var gameCheck = document.getElementById('gamecheck');
 var gameSelection = document.getElementById('game');
 var twitterCheck = document.getElementById('twittercheck');
 var twitterMin = document.getElementById('twittermin');
+var twitchCheck = document.getElementById('twitchcheck');
+var twitchMin = document.getElementById('twitchmin');
+var youtubeCheck = document.getElementById('youtubecheck');
+var youtubeMin = document.getElementById('youtubemin');
 var regionCheck = document.getElementById('regioncheck');
 var region = document.getElementById('region');
 var platformCheck = document.getElementById('platformcheck');
 var platform = document.getElementById('platform');
 var guiQuerySubmit = document.getElementById('guiQuerySubmit');
+var updatedCheck = document.getElementById('updatedcheck');
+var updated = document.getElementById('updated');
 
+/*
 querySubmit.addEventListener('click', click => {
 	getResults(collection.value, JSON.parse(query.value));
 });
+*/
 
 var gameRegex = {
 	"BO3": "Call of Duty: Black Ops (3|III)",
@@ -25,7 +33,8 @@ var gameRegex = {
 	"MWR": "Call of Duty: Modern Warfare.*"
 };
 
-query.value = '{ "twitter": {"$exists": true}, "games": { "$regex": "Call of Duty: Black Ops (3|III)" } }';
+
+// query.value = '{ "twitter": {"$exists": true}, "games": { "$regex": "Call of Duty: Black Ops (3|III)" } }';
 
 guiQuerySubmit.addEventListener('click', click => {
 	var query = '{';
@@ -38,17 +47,31 @@ guiQuerySubmit.addEventListener('click', click => {
 			query += '"twitterFollowers": { "$gt": ' + twitterMin.value + ' },';
 		}
 	}
+	if(twitchCheck.checked){
+		query += '"twitch": { "$exists": true },';
+		if(twitchMin.value > 0){
+			query += '"twitchFollowers": { "$gt": ' + twitchMin.value + ' },';
+		}
+	}
+	if(youtubeCheck.checked){
+		query += '"youtube": { "$exists": true },';
+		if(youtubeMin.value > 0){
+			query += '"youtubeSubscribers": { "$gt": ' + youtubeMin.value + ' },';
+		}
+	}
 	if(regionCheck.checked){
 		query += '"region": "' + region.value + '",';
 	}
 	if(platformCheck.checked){
 		query += '"' + platform.value + '": { "$exists": true },';
 	}
+	if(updatedCheck.checked){
+		query += '"updated": { "$gt": "' + updated.value + '" },';
+	}
 	if(query.endsWith(',')){
 		query = query.substring(0, query.length - 1);
 	}
 	query += '}';
-	console.log(query);
 	query = JSON.parse(query);
 	getResults('users', query);
 });
@@ -72,10 +95,10 @@ function getResults(collection, query){
 				html += '</tr>';
 			for(doc of docs){
 				html += '<tr>';
-				html += '<td>' + doc.username + '</td>';
+				html += '<td><a target="_blank" href="' + doc._id + '">' + doc.username + '</td>';
 				html += '<td>' + doc.region + '</td>';
 				html += '<td>' + ((doc.psn) ? doc.psn : '') + '</td>';
-				html += '<td>' + ((doc.psn) ? doc.xbl : '') + '</td>';
+				html += '<td>' + ((doc.xbl) ? doc.xbl : '') + '</td>';
 				html += '<td><a href="' + ((doc.twitter) ? doc.twitter : '') + '" target="_blank">' + ((doc.twitter) ? doc.twitter : '') + '</a></td>';
 				html += '<td>' + ((doc.twitterFollowers) ? doc.twitterFollowers : '') + '</td>';
 				html += '<td><a href="' + ((doc.twitch) ? doc.twitch : '') + '" target="_blank">' + ((doc.twitch) ? doc.twitch : '') + '</a></td>';

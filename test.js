@@ -78,6 +78,23 @@ testSleep();
 
 // "games": { "$in": ["Black ops 3"] }
 
+/*
 database.query('users', { "twitter": {"$exists": true}, "games": { "$regex": "Call of Duty: Black Ops (3|III)" } }).then(docs => {
 	console.log(docs);
 });
+*/
+/*
+console.log(new Date('2017-08-7'));
+*/
+/*
+const umg = require('./umg');
+const gb = require('./gb');
+
+gb.processUser('http://profile.majorleaguegaming.com/DreamzZ_Fayded', 'tourneyurl', 'NA', 'CoD').then(user => {
+	console.log(user);
+});
+
+gb.processUser('http://profile.majorleaguegaming.com/CWL_DoughBoy', 'tourneyurl', 'NA', 'CoD').then(user => {
+	console.log(user);
+});
+*/

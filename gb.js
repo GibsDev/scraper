@@ -114,7 +114,8 @@ function processUser(url, tournamenturl, region, game){
 			e.each((i, elem) => {
 				if($(elem).attr('network-name').toLowerCase().includes('playstation')){
 					user.psn = $(elem).attr('gamer-tag');
-				} else if($(elem).attr('network-name').toLowerCase().includes('xbox')){
+				}
+				if($(elem).attr('network-name').toLowerCase().includes('xbox')){
 					user.xbl = $(elem).attr('gamer-tag');
 				}
 			});
