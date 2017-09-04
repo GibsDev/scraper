@@ -19,5 +19,3 @@ app.get('/database', async (req, res) => {
 });
 
 tracker.start();
-
-// TODO front end stuff

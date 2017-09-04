@@ -40,7 +40,7 @@ mod.getYoutubeSubscribers = function(url){
 			reject(Error('Invalid YouTube link: ' + url));
 			return;
 		}
-		var subscribers = $('span.yt-subscription-button-subscriber-count-branded-horizontal').first().text().replace(',', '');
+		var subscribers = $('#subscriber-count').first().text().replace(',', '');
 		resolve(parseInt(subscribers));
 	});
 };

@@ -6,25 +6,15 @@
 	</head>
 	<body>
 		<div>
-			<!--
-			<div id='graphHolder'>
-				<canvas id='NA' class='graph'></canvas>
-				<canvas id='EU' class='graph'></canvas>
+			<div class='box'>
+				<h3>GB/UMG Summary</h3>
+				<p> From: <input type='date' id='summaryMinDate'><input type='time' id='summaryMinTime' value='05:00'> to <input type='date' id='summaryMaxDate'><input type='time' id='summaryMaxTime' value='05:00'></p>
+				<a class='button' id='summaryView'>View</a>
+				<!-- <a class='button' id='summary'>Download</a> -->
+				<div id='summaryResults'></div>
 			</div>
-			!-->
-			<!--
-			<p>Advanced Query:</p>
-			<div id='textQuery'>
-				<select id='collection'>
-					<option value='users'>users</option>
-					<option value='tournaments'>tournaments</option>
-				</select>
-				<input type='text' id='query' value='{}'>
-				<input type='button' id='querySubmit' value='Submit Advanced Query'>
-			</div>
-			!-->
-			<p>User Query</p>
-			<div id='guiQuery'>
+			<div class='box' id='guiQuery'>
+				<h3>User Query</h3>
 				<p><input type="checkbox" id="gamecheck"> Game: <select id='game'>
 					<option value='IW'>Infinite Warfare</option>
 					<option value='MWR'>Modern Warfare</option>
@@ -44,13 +34,14 @@
 					<option value='xbl'>XB1</option>
 				</select></p>
 				<p><input type="checkbox" id="updatedcheck"> Active since: <input type="date" id="updated"></p>
-				<input type='button' id='guiQuerySubmit' value='Submit Simple Query'>
+				<a class='button' id='guiQuerySubmit'>Submit</a>
+				<a class='button scary' id='clearResults'>Clear Results</a>
+				<div id='results'></div>
 			</div>
 		</div>
-		<div id='results'></div>
 	</body>
 	<script type='text/javascript' src='database.js'></script>
-	<script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js'></script>
-	<script type='text/javascript' src='graph.js'></script>
-	<script type='text/javascript' src='script.js'></script>
+	<!-- <script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js'></script> -->
+	<script type='text/javascript' src='query.js'></script>
+	<script type='text/javascript' src='export.js'></script>
 </html>

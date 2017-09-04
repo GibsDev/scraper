@@ -94,7 +94,7 @@ mod.processTournament = function(url){
 		tournament.platform = getPlatform($);
 		tournament.game = getGameTitle($);
 		var dateshown = getDate($);
-		tournament.date = new Date(dateshown.valueOf() - (1000 * 60 * 60 * 4));
+		tournament.date = new Date(dateshown.valueOf() - (1000 * 60 * 60 * 4)).toISOString();
 		tournament.entry = parseInt($('div.container div.row div.row ul:nth-child(1) li:nth-child(1) p span').text().replace('  ', ' '));
 		tournament.teamSize = parseInt($('div.col-sm-10 > div.row > ul:nth-child(3) > li:nth-child(2) span').first().text());
 		// Load team page
@@ -221,10 +221,10 @@ function getRegion($){
 }
 
 function getPlatform($){
-	var stuff = $('div.col-sm-12').html().toLowerCase();
+	var stuff = $('div.container > div > div.col-sm-10 > div.row.margin-20 > div > strong').first().text().toLowerCase();
 	if(stuff.includes('xbox')){
 		return 'Xbox One';
-	} else if(stuff.includes('ps4')){
+	} else if(stuff.includes('playstation')){
 		return 'PlayStation 4';
 	} else if(stuff.includes('pc')){
 		return 'PC';

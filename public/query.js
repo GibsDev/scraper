@@ -19,6 +19,8 @@ var guiQuerySubmit = document.getElementById('guiQuerySubmit');
 var updatedCheck = document.getElementById('updatedcheck');
 var updated = document.getElementById('updated');
 
+var clear = document.getElementById('clearResults');
+
 /*
 querySubmit.addEventListener('click', click => {
 	getResults(collection.value, JSON.parse(query.value));
@@ -35,6 +37,12 @@ var gameRegex = {
 
 
 // query.value = '{ "twitter": {"$exists": true}, "games": { "$regex": "Call of Duty: Black Ops (3|III)" } }';
+
+function clearResults(){
+	results.innerHTML = '';
+}
+
+clear.addEventListener('click', clearResults);
 
 guiQuerySubmit.addEventListener('click', click => {
 	var query = '{';
@@ -77,9 +85,9 @@ guiQuerySubmit.addEventListener('click', click => {
 });
 
 function getResults(collection, query){
-	results.innerHTML = '';
+	clearResults();
 	if(collection == 'users'){
-		var html = '<table>';
+		var html = '<hr><table>';
 		database.query(collection, query).then(docs => {
 			html += '<tr>';
 				html += '<th>Username</th>';
@@ -99,11 +107,26 @@ function getResults(collection, query){
 				html += '<td>' + doc.region + '</td>';
 				html += '<td>' + ((doc.psn) ? doc.psn : '') + '</td>';
 				html += '<td>' + ((doc.xbl) ? doc.xbl : '') + '</td>';
-				html += '<td><a href="' + ((doc.twitter) ? doc.twitter : '') + '" target="_blank">' + ((doc.twitter) ? doc.twitter : '') + '</a></td>';
+				var twitter = '';
+				if(doc.twitter){
+					twitter = doc.twitter.split('/');
+					twitter = twitter[twitter.length-1];
+				}
+				html += '<td><a href="' + ((doc.twitter) ? doc.twitter : '') + '" target="_blank">' + twitter + '</a></td>';
 				html += '<td>' + ((doc.twitterFollowers) ? doc.twitterFollowers : '') + '</td>';
-				html += '<td><a href="' + ((doc.twitch) ? doc.twitch : '') + '" target="_blank">' + ((doc.twitch) ? doc.twitch : '') + '</a></td>';
+				var twitch = '';
+				if(doc.twitch){
+					twitch = doc.twitch.split('/');
+					twitch = twitch[twitch.length-1];
+				}
+				html += '<td><a href="' + ((doc.twitch) ? doc.twitch : '') + '" target="_blank">' + twitch + '</a></td>';
 				html += '<td>' + ((doc.twitchFollowers) ? doc.twitchFollowers : '') + '</td>';
-				html += '<td><a href="' + ((doc.youtube) ? doc.youtube : '') + '" target="_blank">' + ((doc.youtube) ? doc.youtube : '') + '</a></td>';
+				var youtube = '';
+				if(doc.youtube){
+					youtube = doc.youtube.split('/');
+					youtube = youtube[youtube.length-1];
+				}
+				html += '<td><a href="' + ((doc.youtube) ? doc.youtube : '') + '" target="_blank">' + youtube + '</a></td>';
 				html += '<td>' + ((doc.youtubeSubscribers) ? doc.youtubeSubscribers : '') + '</td>';
 				html += '</tr>';
 			}

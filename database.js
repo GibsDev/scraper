@@ -29,9 +29,11 @@ mod.upsertTournament = async function(tournament){
 // doc: the document to be inserted
 // collection: the collectionf for the doc to be inserted into
 // returns a Promise that resolves to the original document put in (not the current version in the db as it would cost another query...)
-mod.upsertOne = function(doc, collection){
+mod.upsertOne = function(doc, collection, dontChangeUpdateTime){
 	// Set the updated field of the document
-	doc.updated = new Date(Date.now());
+	if(!dontChangeUpdateTime){
+		doc.updated = new Date(Date.now()).toISOString();
+	}
 	return new Promise(async (resolve, reject) => {
 		var database = await getDB();
 		// The calculated update object
@@ -67,18 +69,26 @@ mod.upsertOne = function(doc, collection){
 	});
 };
 
+function convertDates(obj){
+	// For each property of obj
+	for(key in obj){
+		// Check if it is a nested object
+		if(typeof obj[key] === 'object'){
+			// Continue to process it
+			convertDates(obj);
+		} else {
+			// Check if it is a date
+			var d = new Date(obj[key]);
+			if(!isNaN(d.valueOf())){
+				obj[key] = d;
+			}
+		}
+	}
+}
+
 mod.query = function(collection, query){
 	return new Promise(async (resolve, reject) => {
 		var database = await getDB();
-		// Convert dates
-		if(query.updated != undefined){
-			for(key in query.updated){
-				var d = new Date(query.updated[key]);
-				if(!isNaN(d.valueOf())){
-					query.updated[key] = d;
-				}
-			}
-		}
 		var results = database.collection(collection).find(query).toArray().then(results => {
 			resolve(results);
 			database.close();
