@@ -1,6 +1,6 @@
 var scrape = require('./scrape');
 var database = require('./database');
-
+/*
 var testLinks = [
 		'https://umggaming.com/u/Juiceyass',
 		'https://umggaming.com/u/We will see',
@@ -37,7 +37,7 @@ var testLinks = [
 		'https://umggaming.com/u/yeetyaat',
 		'https://umggaming.com/u/zhemii'
 	];
-
+*/
 /*
 var promises = [];
 var j = 0;
@@ -98,3 +98,11 @@ gb.processUser('http://profile.majorleaguegaming.com/CWL_DoughBoy', 'tourneyurl'
 	console.log(user);
 });
 */
+
+var url = 'https://umggaming.com/tournaments/2484';
+
+console.log(url);
+
+database.query('tournaments', { '_id': url }).then(docs => {
+	console.log(docs);
+});

@@ -14,6 +14,7 @@ function getResults(download){
 	var baseQuery = { 'date': { '$gt': minDate, '$lt': maxDate } };
 	var results = {};
 	database.query('tournaments', baseQuery).then(docs => {
+		console.log(docs);
 		for(doc of docs){
 			if(results[doc.website] == undefined){
 				results[doc.website] = {};
@@ -30,6 +31,7 @@ function getResults(download){
 				results[doc.website][doc.region][doc.platform][doc.game] += doc.teamCount * doc.teamSize;
 			}
 		}
+		console.log(results);
 		summaryResults.innerHTML = '';
 		var html = '<hr>';
 		html += '<table>';
@@ -58,7 +60,7 @@ function getResults(download){
 		html += '</table>';
 		summaryResults.innerHTML = html;
 		if(download){
-			// TODO download
+			// Not implemented
 		}
 	});
 }

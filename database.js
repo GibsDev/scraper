@@ -110,8 +110,6 @@ mod.deleteAll = function(){
 
 module.exports = mod;
 
-// TODO consider changing all dates to the .valueOf() number
-
 /*
 User {
 	_id (url),
