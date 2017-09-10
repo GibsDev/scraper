@@ -18,7 +18,7 @@ async function scheduleTournaments(){
 		var tournaments = await scraper.checkTournaments();
 		for(tournament of tournaments){
 			var exists = false;
-			// Check if it exists already
+			// Check if it exists already in the scheduledTournaments
 			for(scheduledTournament of scheduledTournaments){
 				if(scheduledTournament.link == tournament.link){
 					exists = true;
