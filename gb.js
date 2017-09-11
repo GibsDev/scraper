@@ -41,8 +41,11 @@ mod.processTournament = function(url){
 		tournament.platform = getPlatform(url);
 		tournament.game = $('div.boxContent > div.smpad > ul.rules:last-child > p').first().text().substring(18).split(' on ')[0];
 		tournament.date = new Date($('div.boxContent > div.smpad > ul.rules:nth-child(4) strong').first().text()).toISOString();
-		tournament.entry = $('div.container div.row div.row ul:nth-child(1) li:nth-child(1) p span').first().text().replace('  ', ' ');
+		tournament.entry = $('#subcontainer > div.boxOuter.xl.lt > div.boxContent > div > ul:nth-child(8) > p:nth-child(6) > a').first().text().trim();
 		tournament.teamSize = parseInt($('div.boxContent > div.smpad > ul.rules:nth-child(6) strong').eq(2).text());
+		if(isNaN(tournament.teamSize)){
+			tournament.teamSize = 1;
+		}
 		// Load team page
 		html = await scrape(url + '/teams');
 		$ = cheerio.load(html);
