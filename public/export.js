@@ -1,3 +1,5 @@
+(function(){
+	
 //var summary = document.getElementById('summary');
 var summaryView = document.getElementById('summaryView');
 
@@ -14,6 +16,7 @@ function getResults(download){
 	var baseQuery = { 'date': { '$gt': minDate, '$lt': maxDate } };
 	var results = {};
 	database.query('tournaments', baseQuery).then(docs => {
+		console.log(docs);
 		for(doc of docs){
 			if(results[doc.website] == undefined){
 				results[doc.website] = {};
@@ -72,3 +75,4 @@ function pad(n, width, z) {
 	return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
 }
 
+})();

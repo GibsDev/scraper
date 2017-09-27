@@ -1,3 +1,5 @@
+(function(){
+	
 //var query = document.getElementById('query');
 //var querySubmit = document.getElementById('querySubmit');
 var collection = document.getElementById('collection');
@@ -82,6 +84,7 @@ guiQuerySubmit.addEventListener('click', click => {
 	query += '}';
 	query = JSON.parse(query);
 	getResults('users', query);
+	console.log(query);
 });
 
 function getResults(collection, query){
@@ -89,6 +92,7 @@ function getResults(collection, query){
 	if(collection == 'users'){
 		var html = '<hr><table>';
 		database.query(collection, query).then(docs => {
+			console.log(docs);
 			html += '<tr>';
 				html += '<th>Username</th>';
 				html += '<th>Region</th>';
@@ -142,3 +146,4 @@ function getResults(collection, query){
 		});
 	}
 }
+})();
