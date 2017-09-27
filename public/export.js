@@ -33,6 +33,7 @@ function getResults(download){
 				results[doc.website][doc.region][doc.platform][doc.game] += doc.teamCount * doc.teamSize;
 			}
 		}
+		console.log(results);
 		summaryResults.innerHTML = '';
 		var html = '<hr>';
 		html += '<table>';
@@ -61,7 +62,7 @@ function getResults(download){
 		html += '</table>';
 		summaryResults.innerHTML = html;
 		if(download){
-			// TODO download
+			// Not implemented
 		}
 	});
 }

@@ -4,8 +4,6 @@ const database = require('./database');
 const gb = require('./gb');
 const umg = require('./umg');
 
-// TODO schedule tournament processor and do umg
-
 var scrapers = [
 	gb,
 	umg
@@ -20,7 +18,7 @@ async function scheduleTournaments(){
 		var tournaments = await scraper.checkTournaments();
 		for(tournament of tournaments){
 			var exists = false;
-			// Check if it exists already
+			// Check if it exists already in the scheduledTournaments
 			for(scheduledTournament of scheduledTournaments){
 				if(scheduledTournament.link == tournament.link){
 					exists = true;
@@ -45,7 +43,6 @@ async function scheduleTournaments(){
 
 async function processTournament(scraper, url){
 	console.log('Processing tournament: ' + url);
-	// TODO remove tournament from scheduled
 	var tournament = await scraper.processTournament(url);
 	// Remove directly placed documents of users with the _ids
 	var promises = [];
@@ -66,6 +63,13 @@ async function processTournament(scraper, url){
 			console.log('Total tournament count: ' + tournaments.length);
 		});
 	});
+	// Remove the tournament from the scheduledTournaments list
+	for(var i = 0; i < scheduledTournaments.length; i++){
+		var tournament = scheduledTournaments[i];
+		if(tournament.url == url){
+			scheduledTournaments.splice(i, 1);
+		}
+	}
 }
 
 

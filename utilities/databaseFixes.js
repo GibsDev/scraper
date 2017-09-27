@@ -1,4 +1,3 @@
-// TODO go through each UMG tournament up fix the platform field
 const database = require('./database');
 const umg = require('./umg');
 
